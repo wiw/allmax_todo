@@ -21,5 +21,5 @@ from django.contrib.auth.views import auth_login, auth_logout
 urlpatterns = [
     url(r'admin/', admin.site.urls),
     url(r'^$', index, name="TodoList"),
-    url(r'^login/$', auth_login())
+    # url(r'^login/$', auth_login())
 ]
