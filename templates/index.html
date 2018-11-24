@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Allmax todo app as test case</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<body>
+<div class="container">
+    <div class="mx-auto app-form" style="width: 800px;">
+            <h1 class="mt-5 text-center">ToDo<br><small class="text-muted">AllMax web-tool</small></h1>
+        <form action="" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" class="form-control" id="title" name="title" aria-describedby="todo_title" placeholder="What do you want to do?" required>
+            </div>
+        <div class="form-row">
+            <div class="col"">
+                <input type="date" id="date" name="date" class="form-control">
+            </div>
+            <div class="col"">
+                <select class="form-control" id="selected_category" name="selected_category">
+                    <option selected class="disabled">Choose a category...</option>
+                    {%  for category_item in categories %}
+                        <option value="{{ category_item.name }}" name="{{ category_item.name }}">{{ category_item.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+            <div class="form-row mt-4">
+                <div class="col text-center">
+                    <button type="submit" class="add_task btn btn-primary" name="add_task">Add task</button>
+                </div>
+                <div class="col text-center">
+                    <button type="submit" class="delete_task btn btn-danger" name="delete_task" formnovalidate="">Remove task</button>
+                </div>
+            </div>
+            <div class="task_list list-group list-group-flush">
+                {% for todo_item in todo_items %}
+                    <div class="d-flex w-100 justify-content-between">
+                        <input type="checkbox" id="{{ todo_item.id }}" name="checkedbox" value="{{ todo_item.id }}">
+                        <label for="{{ todo_item.id }}">
+                            <span>{{ todo_item.title }}</span>
+                        </label>
+                        <span>{{ todo_item.category }}</span>
+                        <b>{{ todo_item.created }} - {{ todo_item.due_date }}</b>
+                    </div>
+                {% endfor %}
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>
